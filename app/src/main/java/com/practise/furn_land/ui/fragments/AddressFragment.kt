@@ -1,7 +1,6 @@
-package com.practise.furn_land
+package com.practise.furn_land.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -11,8 +10,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.practise.furn_land.R
 import com.practise.furn_land.ui.activity.HomeActivity
-import com.practise.furn_land.ui.fragments.ProductListFragment
 import com.practise.furn_land.view_models.UserViewModel
 
 class AddressFragment : Fragment() {

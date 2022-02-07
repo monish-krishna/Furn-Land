@@ -236,7 +236,7 @@
     </fragment>
     <fragment
         android:id="@+id/addressBottomSheetDialogFragment"
-        android:name="com.practise.furn_land.AddressFragment"
+        android:name="com.practise.furn_land.ui.fragments.AddressFragment"
         android:label="Address"
         tools:layout="@layout/fragment_address" >
         <action
