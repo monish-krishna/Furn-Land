@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvOrderDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_small"
+                android:text="@string/order_date"
+                android:textColor="@color/customColorFontPrimary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tvOrderTimeTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvOrderDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvOrderDateTitle"
+                app:layout_constraintBottom_toBottomOf="@+id/tvOrderDateTitle"
+                app:layout_constraintStart_toEndOf="@+id/tvOrderDateTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvOrderDateTitle"
+                tools:text="01-02-2022" />
+
+            <TextView
+                android:id="@+id/tvOrderTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvOrderTimeTitle"
+                app:layout_constraintBottom_toBottomOf="@id/tvOrderTimeTitle"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineDateTime"
+                app:layout_constraintStart_toEndOf="@id/tvOrderTimeTitle"
+                app:layout_constraintTop_toTopOf="@id/tvOrderTimeTitle"
+                tools:text="10:00 AM" />
+
+            <TextView
+                android:id="@+id/tvOrderTimeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_small"
+                android:text="@string/order_time"
+                android:textColor="@color/customColorFontPrimary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvOrderDateTitle" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/tvProductNosTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_small"
+                android:text="@string/no_of_products"
+                android:textColor="@color/customColorFontPrimary"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvOrderDateTitle"
+                app:layout_constraintStart_toStartOf="@+id/guidelineDateTime" />
+
+            <TextView
+                android:id="@+id/tvTotalPriceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_small"
+                android:text="@string/total_price"
+                android:textColor="@color/customColorFontPrimary"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvOrderTimeTitle"
+                app:layout_constraintStart_toEndOf="@id/guidelineDateTime" />
+
+
+            <TextView
+                android:id="@+id/tvNoOfProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvOrderDateTitle"
+                app:layout_constraintBottom_toBottomOf="@id/tvOrderDateTitle"
+                app:layout_constraintStart_toEndOf="@id/tvProductNosTitle"
+                app:layout_constraintTop_toTopOf="@id/tvOrderDateTitle"
+                tools:text="3" />
+
+            <TextView
+                android:id="@+id/tvTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvOrderTimeTitle"
+                app:layout_constraintBottom_toBottomOf="@id/tvOrderTimeTitle"
+                app:layout_constraintStart_toEndOf="@id/tvTotalPriceTitle"
+                app:layout_constraintTop_toTopOf="@id/tvOrderTimeTitle"
+                tools:text="Rs 1999" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

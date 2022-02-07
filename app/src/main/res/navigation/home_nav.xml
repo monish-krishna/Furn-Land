@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.practise.furn_land.ui.fragments.HomeFragment"
+        android:label="Furn-Land"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_productListFragment"
+            app:destination="@id/productListFragment"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.practise.furn_land.ui.fragments.SearchFragment"
+        android:label="Furn-Land"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_productFragment"
+            app:destination="@id/productFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="categoryId"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_searchFragment_to_productListFragment"
+            app:destination="@id/productListFragment"
+            app:popUpTo="@id/searchFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.practise.furn_land.ui.fragments.CartFragment"
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_orderConfirmedDialogFragment"
+            app:destination="@id/orderConfirmedDialogFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_newAddressDialogFragment"
+            app:destination="@id/newAddressDialogFragment"
+            app:popUpTo="@id/cartFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.practise.furn_land.ui.fragments.FavoriteFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favoriteFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.practise.furn_land.ui.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_logOutDialogFragment"
+            app:destination="@id/logOutDialogFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_addressBottomSheetDialogFragment"
+            app:destination="@id/addressBottomSheetDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.practise.furn_land.ui.fragments.ProductFragment"
+        android:label="Product"
+        tools:layout="@layout/fragment_product">
+        <argument
+            android:name="productId"
+            android:defaultValue="1"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_productFragment_to_logInDialogFragment"
+            app:destination="@id/logInDialogFragment" />
+        <action
+            android:id="@+id/action_productFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_productFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.practise.furn_land.ui.fragments.ProductListFragment"
+        android:label="Product List"
+        tools:layout="@layout/fragment_product_list">
+        <argument
+            android:name="categoryId"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_productListFragment_to_productFragment"
+            app:destination="@id/productFragment"
+            app:popUpTo="@id/productListFragment" />
+        <argument
+            android:name="title"
+            android:defaultValue="Product List"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_productListFragment_to_sortBottomSheetFragment"
+            app:destination="@id/sortBottomSheetFragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/sortBottomSheetFragment"
+        android:name="com.practise.furn_land.ui.fragments.SortBottomSheetFragment"
+        android:label="fragment_sort_bottom_sheet"
+        tools:layout="@layout/fragment_sort_bottom_sheet"/>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.practise.furn_land.ui.fragments.LogInFragment"
+        android:label="Log In"
+        tools:layout="@layout/fragment_log_in">
+        <action
+            android:id="@+id/action_logInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.practise.furn_land.ui.fragments.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_sign_up" />
+    <dialog
+        android:id="@+id/logInDialogFragment"
+        android:name="com.practise.furn_land.ui.fragments.LogInDialogFragment"
+        android:label="fragment_log_in_dialog">
+        <action
+            android:id="@+id/action_logInDialogFragment_to_logInFragment"
+            app:destination="@id/logInFragment"
+            app:popUpTo="@id/productFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/orderConfirmedDialogFragment"
+        android:name="com.practise.furn_land.ui.fragments.OrderConfirmedDialogFragment"
+        android:label="fragment_order_confirmed_dialog"
+        tools:layout="@layout/fragment_order_confirmed_dialog">
+        <argument
+            android:name="orderId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_orderConfirmedDialogFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </dialog>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.practise.furn_land.ui.fragments.OrdersFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_orders">
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_ordersFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderListFragment"
+        android:name="com.practise.furn_land.ui.fragments.OrderListFragment"
+        android:label="Order Detail"
+        tools:layout="@layout/fragment_order_list">
+        <argument
+            android:name="orderId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_orderListFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/logOutDialogFragment"
+        android:name="com.practise.furn_land.ui.fragments.LogOutDialogFragment"
+        android:label="fragment_log_out_dialog"
+        tools:layout="@layout/fragment_log_out_dialog" />
+    <fragment
+        android:id="@+id/newAddressDialogFragment"
+        android:name="com.practise.furn_land.ui.fragments.NewAddressFragment"
+        android:label="New Address"
+        tools:layout="@layout/fragment_new_address" >
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="Address" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressBottomSheetDialogFragment"
+        android:name="com.practise.furn_land.AddressFragment"
+        android:label="Address"
+        tools:layout="@layout/fragment_address" >
+        <action
+            android:id="@+id/action_addressBottomSheetDialogFragment_to_newAddressDialogFragment"
+            app:destination="@id/newAddressDialogFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MyDarkActionbar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/purple_200</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.FurnLand">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+</resources>

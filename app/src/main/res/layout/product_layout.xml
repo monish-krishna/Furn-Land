@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.practise.furn_land.view_models.ProductViewModel"/>
+        <import type="android.view.View.OnClickListener"/>
+        <import type="android.view.View"/>
+        <import type="com.practise.furn_land.utils.ExtensionsKt"/>
+        <import type="kotlin.jvm.functions.Function1"/>
+        <variable
+            name="viewModel"
+            type="ProductViewModel" />
+        <variable
+            name="productNameClickListener"
+            type="OnClickListener" />
+        <variable
+            name="roundToInt"
+            type="Function1&lt;Float,Integer>" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/imageSlider"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small"
+            android:backgroundTint="@color/white"
+            app:iss_auto_cycle="true"
+            app:iss_delay="3000"
+            app:iss_error_image="@drawable/image_not_available"
+            app:iss_period="2000"
+            app:iss_placeholder="@drawable/ic_image"
+            app:iss_selected_dot="@drawable/ic_dot_selected"
+            app:iss_unselected_dot="@drawable/default_unselected_dot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </com.denzcoskun.imageslider.ImageSlider>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textSize="16sp"
+            android:text="@{viewModel.product.name}"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2"
+            tools:text="Product Name" />
+
+        <TextView
+            android:id="@+id/more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/more"
+            android:onClickListener="@{productNameClickListener}"
+            android:textColor="@color/customColorFontPrimary"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
+
+        <TextView
+            android:id="@+id/tvRatingIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.product.totalRating.toString()}"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:padding="@dimen/padding_large"
+            android:minHeight="24dp"
+            android:minWidth="48dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/more"
+            tools:text="5.0"
+            tools:textColor="@color/black"
+            tools:drawableTint="@color/black"
+            app:drawableLeftCompat="@drawable/ic_baseline_star_rate_24" />
+
+        <TextView
+            android:id="@+id/tvNoRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_ratings_available_yet"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/tvRatingIcon"
+            app:layout_constraintStart_toEndOf="@id/tvRatingIcon"
+            android:layout_marginStart="@dimen/margin_small"/>
+        
+        <TextView
+            android:id="@+id/tvCurrentPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`₹`+ roundToInt.invoke(viewModel.product.currentPrice)}"
+            app:layout_constraintTop_toBottomOf="@id/tvRatingIcon"
+            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            android:layout_marginTop="@dimen/margin_small"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textStyle="bold"
+            tools:text="₹500"/>
+
+        <TextView
+            android:id="@+id/tvOriginalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.product.originalPrice > viewModel.product.currentPrice ? View.VISIBLE : View.GONE}"
+            android:text="@{`₹`+ roundToInt.invoke(viewModel.product.originalPrice)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/red"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvCurrentPrice"
+            app:layout_constraintStart_toEndOf="@id/tvCurrentPrice"
+            android:layout_marginStart="@dimen/padding_small"
+            tools:text="@string/originalPriceEg"/>
+
+        <TextView
+            android:id="@+id/tvOffer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ratingGreen"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textStyle="bold"
+            android:text="@{viewModel.productOffer + `% Off`}"
+            android:visibility="@{viewModel.productOffer > 1 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/tvCurrentPrice"
+            app:layout_constraintStart_toStartOf="@id/tvCurrentPrice"
+            tools:text="50% Off"/>
+
+        <TextView
+            android:id="@+id/availabilityAlert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:text="@{`Hurry, only `+ viewModel.product.stockCount +` left!`}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            tools:text="Hurry, only 1 left!"
+            android:textColor="@color/orangeRed"
+            android:textStyle="italic"
+            android:visibility="@{(viewModel.product.stockCount &lt; 10) &amp;&amp; (viewModel.product.stockCount > 0) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/tvOffer"
+            app:layout_constraintStart_toStartOf="@id/tvCurrentPrice"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardProductsDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:padding="@dimen/padding_large"
+            app:cardCornerRadius="0dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/availabilityAlert"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardInnerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/detailsView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:id="@+id/allDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_small"
+                        android:text="@string/all_details"
+                        android:textColor="@color/customColorFontPrimary"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/moreArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_expand_more"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginEnd="@dimen/margin_small"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/detailsListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/detailsView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDetailsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/cardProductsDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/availabilityAlert" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

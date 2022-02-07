@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.activity.HomeActivity">
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_large"
+                android:clickable="true"
+                android:focusable="true"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Monish Krishna S" />
+
+            <TextView
+                android:id="@+id/tvMobileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:drawableLeft="@drawable/ic_mobile"
+                android:drawablePadding="@dimen/padding_small"
+                android:drawableTint="@color/customColorFontPrimary"
+                android:focusable="true"
+                android:inputType="none"
+                android:padding="@dimen/padding_small"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintEnd_toEndOf="@+id/tvEmail"
+                app:layout_constraintStart_toStartOf="@+id/tvEmail"
+                app:layout_constraintTop_toBottomOf="@+id/tvEmail"
+                tools:text="9486801234" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:layout_marginTop="59dp"
+                android:clickable="true"
+                android:drawableLeft="@drawable/ic_email"
+                android:drawablePadding="@dimen/padding_small"
+                android:drawableTint="@color/customColorFontPrimary"
+                android:focusable="true"
+                android:padding="@dimen/padding_small"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+                tools:text="monishkrishna.s@gmail.com" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMobileNumber">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/myOrders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_order"
+                        android:drawableEnd="@drawable/ic_arrow_right"
+                        android:drawablePadding="@dimen/padding_small"
+                        android:drawableTint="@color/customColorFontPrimary"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="@dimen/padding_large"
+                        android:text="@string/my_orders"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/myCart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_shopping_cart_filled"
+                        android:drawableEnd="@drawable/ic_arrow_right"
+                        android:drawablePadding="@dimen/padding_small"
+                        android:drawableTint="@color/customColorFontPrimary"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="@dimen/padding_large"
+                        android:text="@string/my_cart"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/orderDivider" />
+
+                    <TextView
+                        android:id="@+id/myFavorites"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_favorite_filled"
+                        android:drawableEnd="@drawable/ic_arrow_right"
+                        android:drawablePadding="@dimen/padding_small"
+                        android:drawableTint="@color/customColorFontPrimary"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="@dimen/padding_large"
+                        android:text="@string/my_favorites"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cartDivider" />
+
+                    <TextView
+                        android:id="@+id/myAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_location"
+                        android:drawableEnd="@drawable/ic_arrow_right"
+                        android:drawablePadding="@dimen/padding_small"
+                        android:drawableTint="@color/customColorFontPrimary"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="@dimen/padding_large"
+                        android:text="@string/myAddresses"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/favoritesDivider" />
+
+                    <View
+                        android:id="@+id/orderDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/myOrders" />
+
+                    <View
+                        android:id="@+id/cartDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/myCart" />
+
+                    <View
+                        android:id="@+id/favoritesDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/myFavorites" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/editProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:padding="@dimen/padding_small"
+                android:text="@string/edit_profile"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textStyle="bold"
+                android:textColor="@color/customColorFontPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView5" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/edit_profile_cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editProfile">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/changeName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawableEnd="@drawable/ic_arrow_right"
+                        android:drawablePadding="@dimen/padding_small"
+                        android:drawableTint="@color/customColorFontPrimary"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="@dimen/padding_large"
+                        android:text="@string/change_name"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/changeMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_mobile"
+                        android:drawableEnd="@drawable/ic_arrow_right"
+                        android:drawablePadding="@dimen/padding_small"
+                        android:drawableTint="@color/customColorFontPrimary"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="@dimen/padding_large"
+                        android:text="@string/change_mobile"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/changeNameDivider" />
+
+                    <TextView
+                        android:id="@+id/changePassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawableEnd="@drawable/ic_arrow_right"
+                        android:drawablePadding="@dimen/padding_small"
+                        android:drawableTint="@color/customColorFontPrimary"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="@dimen/padding_large"
+                        android:text="@string/change_password"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/changeMobileDivider" />
+
+                    <View
+                        android:id="@+id/changeNameDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/changeName" />
+
+                    <View
+                        android:id="@+id/changeMobileDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/changeMobile" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>
