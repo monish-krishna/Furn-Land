@@ -15,7 +15,8 @@ import com.practise.furn_land.data.entities.*
         ProductDetail::class,
         ProductImage::class,
         Review::class,
-        User::class
+        User::class,
+        SuggestionHistory::class
     ],
     version = 1,
     exportSchema = true
