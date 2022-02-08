@@ -110,7 +110,6 @@ class CartFragment : Fragment() {
                 AlertDialog.Builder(requireContext())
                     .setTitle(R.string.adrress_required)
                     .setMessage(R.string.add_address_and_checkout)
-                    .setIcon(R.drawable.ic_location)
                     .setPositiveButton(R.string.yes){ _,_ ->
                         cartsWithProductAndImages = cartViewModel.getCartItems().value as List<CartWithProductAndImages>
                         findNavController().navigate(CartFragmentDirections.actionCartFragmentToNewAddressDialogFragment())
