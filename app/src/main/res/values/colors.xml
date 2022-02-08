@@ -39,7 +39,7 @@
     <color name="orangeRed">#FF4500</color>
     <color name="cardViewColorCustom">@color/white</color>
     <color name="fieldStrokeColor">#666666</color>
-
+    <color name="customIconColor">#414A4C</color>
 
 // My Clors 2
     <color name="primaryColor">#d7ccc8</color>
