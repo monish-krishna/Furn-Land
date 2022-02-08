@@ -151,7 +151,15 @@ class UserRepository(
             args.add(searchStringPart)
             queryText += " OR suggestion LIKE ?"
         }
-        queryText += ") AND (userId = 0 OR userId = $userId)"
+        queryText += ") AND (userId = 0 OR userId = $userId) ORDER BY id DESC"
         return SimpleSQLiteQuery(queryText, args.toArray())
+    }
+
+    suspend fun removeSuggestionHistory(suggestionHistory: SuggestionHistory) {
+        dao.removeSuggestionHistory(suggestionHistory)
+    }
+
+    suspend fun isSuggestionPresent(suggestion: String): Boolean= withContext(Dispatchers.IO) {
+        dao.isSuggestionPresent(suggestion)==1
     }
 }

@@ -15,6 +15,7 @@
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_add.xml" value="0.222" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_app_icon.xml" value="0.1453125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_arrow_back.xml" value="0.222" />
+        <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.203" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.222" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2703125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.1453125" />
@@ -25,6 +26,7 @@
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_favorite_filled.xml" value="0.2703125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_favorite_selected.xml" value="0.2703125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_favorite_unselected.xml" value="0.2703125" />
+        <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_history.xml" value="0.2595" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_image.xml" value="0.2703125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1453125" />
@@ -38,8 +40,10 @@
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_person.xml" value="0.2703125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_person_focussed.xml" value="0.2703125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_phone.xml" value="0.2703125" />
+        <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_remove.xml" value="0.203" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_round_favorite_24.xml" value="0.2703125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_round_home_24.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_search.xml" value="0.2595" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/ic_shopping_cart_filled.xml" value="0.1453125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/outlined_text_icon_tint.xml" value="0.2703125" />
         <entry key="..\:/Users/monish-12204/AndroidStudioProjects/FurnLand/app/src/main/res/drawable/profile_gradient_background.xml" value="0.222" />

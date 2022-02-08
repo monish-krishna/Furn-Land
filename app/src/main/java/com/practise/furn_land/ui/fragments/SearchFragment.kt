@@ -1,5 +1,6 @@
 package com.practise.furn_land.ui.fragments
 
+import android.app.AlertDialog
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.util.Log
@@ -10,12 +11,13 @@ import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.onNavDestinationSelected
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.practise.furn_land.R
+import com.practise.furn_land.data.entities.SuggestionHistory
+import com.practise.furn_land.ui.adapters.SuggestionAdapter
 import com.practise.furn_land.utils.safeNavigate
 import com.practise.furn_land.view_models.ProductListViewModel
 import com.practise.furn_land.view_models.ProductListViewModel.Companion.SEARCH_COMPLETED
@@ -31,6 +33,8 @@ class SearchFragment : Fragment() {
     private lateinit var ivSearchIllus: ImageView
     private lateinit var tvSearchInfo: TextView
     private lateinit var searchView: SearchView
+    private lateinit var rvSuggestions: RecyclerView
+    private var firstFocus: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,25 +51,70 @@ class SearchFragment : Fragment() {
 
         ivSearchIllus = view.findViewById(R.id.ivSearchIllustration)
         tvSearchInfo = view.findViewById(R.id.tvScreenInfo)
+        rvSuggestions = view.findViewById(R.id.rvSuggestions)
 
         searchView = view.findViewById(R.id.search)
         searchView.isSubmitButtonEnabled = true
         searchView.setOnQueryTextListener(getSearchQueryListener(view))
         searchView.setOnQueryTextFocusChangeListener{ _, hasFocus ->
             if(hasFocus){
+                if (firstFocus) {
+                    userViewModel.initSuggestions()
+                    firstFocus = false
+                }
+                ivSearchIllus.visibility = View.GONE
+                tvSearchInfo.visibility = View.GONE
+                rvSuggestions.visibility = View.VISIBLE
                 ivSearchIllus.setImageResource(R.drawable.image_search_illustration)
                 tvSearchInfo.text = getString(R.string.start_your_furniture_hunt_here)
+            }else{
+                ivSearchIllus.visibility = View.VISIBLE
+                tvSearchInfo.visibility = View.VISIBLE
+                rvSuggestions.visibility = View.GONE
             }
+        }
+        rvSuggestions.layoutManager = LinearLayoutManager(requireContext())
+        userViewModel.getSuggestions().observe(viewLifecycleOwner){ suggestions ->
+            val distinctSuggestions = suggestions.distinctBy {
+                it.suggestion
+            }
+            if (suggestions.isEmpty()) return@observe
+            val mutableSuggestions = ArrayList<SuggestionHistory>(distinctSuggestions)
+            rvSuggestions.adapter= SuggestionAdapter(mutableSuggestions.toMutableList(),getOnClickSuggestion())
         }
         requireActivity().invalidateOptionsMenu()
     }
 
+    private fun getOnClickSuggestion() = object : SuggestionAdapter.OnClickSuggestion{
+        override fun onClick(suggestion: SuggestionHistory) {
+            searchView.setQuery(suggestion.suggestion,true)
+        }
+
+        override fun onClickRemove(suggestionHistory: SuggestionHistory, position: Int) {
+            AlertDialog.Builder(requireContext())
+                .setTitle(suggestionHistory.suggestion)
+                .setMessage(R.string.remove_from_history)
+                .setPositiveButton(R.string.remove){_,_ ->
+                    userViewModel.removeSuggestion(suggestionHistory)
+                    (rvSuggestions.adapter as? SuggestionAdapter)?.removeSuggestion(position)
+                }
+                .setNegativeButton(getString(R.string.cancel)){_,_ ->}
+                .create()
+                .show()
+        }
+
+    }
+
     private fun getSearchQueryListener(view: View) = object : SearchView.OnQueryTextListener{
         override fun onQueryTextSubmit(query: String?): Boolean {
+            rvSuggestions.visibility = View.GONE
             hideInput()
             searchView.clearFocus()
+            firstFocus = true
             if (query == null) return false
-            productListViewModel.setProductsWithImagesWithQuery(query)
+            productListViewModel.setProductsWithImagesWithQuery(query).also {
+                userViewModel.insertSuggestion(query)
+            }
             productListViewModel.getSearchStatus().observe(viewLifecycleOwner){ status ->
                 when (status) {
                     SEARCH_COMPLETED -> {
@@ -89,16 +138,18 @@ class SearchFragment : Fragment() {
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
+            rvSuggestions.visibility=View.VISIBLE
             newText?.let {
-                userViewModel.updateSuggestions(newText)
+                userViewModel.updateSuggestions(it)
             }
-            userViewModel.getSuggestions().observe(viewLifecycleOwner){ suggestions ->
-                Log.i("SEARCH_SUGGESTION",suggestions.toString())
-                if(suggestions.isEmpty()) return@observe
-                Log.i("SEARCH_SUGGESTION",suggestions.toString())
-            }
+            if (newText.isNullOrEmpty()) userViewModel.initSuggestions()
             return true
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        rvSuggestions.visibility = View.GONE
     }
 
     fun hideInput(){
@@ -126,6 +177,7 @@ class SearchFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        rvSuggestions.adapter = null
         productListViewModel.setSearchStatus(SEARCH_NOT_INITIATED)
     }
 }

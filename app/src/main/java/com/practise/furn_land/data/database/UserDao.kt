@@ -95,7 +95,7 @@ interface UserDao {
     suspend fun getUserAddress(userId: Long): Address
 
     //Suggestions and history
-    @Query("SELECT * FROM SuggestionHistory WHERE userId = 0 OR userId = :userId")
+    @Query("SELECT * FROM SuggestionHistory WHERE userId = 0 OR userId = :userId ORDER BY id DESC")
     suspend fun getSuggestions(userId: Int): List<SuggestionHistory>
 
     @RawQuery
@@ -103,4 +103,10 @@ interface UserDao {
 
     @Insert
     suspend fun insertSuggestion(suggestion: SuggestionHistory)
+
+    @Delete
+    suspend fun removeSuggestionHistory(suggestionHistory: SuggestionHistory)
+
+    @Query("SELECT EXISTS(SELECT 1 FROM SuggestionHistory WHERE suggestion = :suggestion )")
+    suspend fun isSuggestionPresent(suggestion: String): Int
 }

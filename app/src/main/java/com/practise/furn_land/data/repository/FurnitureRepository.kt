@@ -65,12 +65,12 @@ class FurnitureRepository(
     }
 
     private fun generateSearchQuery(query: List<String>): SupportSQLiteQuery{
-        var queryText = "SELECT * FROM Product WHERE name LIKE \'${query[0]}\' or brandName LIKE \'${query[0]}\'"
+        var queryText = "SELECT * FROM Product WHERE (name LIKE \'${query[0]}\' or brandName LIKE \'${query[0]}\')"
         val args = arrayListOf<String>()
         query.drop(1).forEach { searchStringPart ->
             args.add(searchStringPart)
             args.add(searchStringPart)
-            queryText += " OR name LIKE ? or brandName LIKE ? "
+            queryText += " AND (name LIKE ? or brandName LIKE ? )"
         }
         Log.i("Search","args - $args")
         Log.i("Search","args - $queryText")

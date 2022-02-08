@@ -3,6 +3,8 @@ package com.practise.furn_land.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -16,25 +18,17 @@ class SuggestionAdapter(
 
     inner class SuggestionViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val tvSuggestion = itemView.findViewById<TextView>(R.id.tvSuggestion)
+        private val ibRemove = itemView.findViewById<ImageButton>(R.id.ibRemove)
+        private val ivSearch = itemView.findViewById<ImageView>(R.id.ivSearch)
 
         fun bind(suggestionHistory: SuggestionHistory){
             tvSuggestion.text = suggestionHistory.suggestion
-            if (suggestionHistory.userId!=0) {
-                tvSuggestion.setCompoundDrawables(
-                    ResourcesCompat.getDrawable(
-                        itemView.resources,
-                        R.drawable.ic_history,
-                        null
-                    ),
-                    null,
-                    null,
-                    null
-                )
+            if (suggestionHistory.userId>0) {
+                ivSearch.setImageDrawable(ResourcesCompat.getDrawable(itemView.resources,R.drawable.ic_history,null))
+                ibRemove.visibility = View.VISIBLE
             }
-            tvSuggestion.setOnLongClickListener {
-                onClickSuggestion.onLongClick(suggestionHistory,adapterPosition)
-                removeSuggestion(adapterPosition)
-                true
+            ibRemove.setOnClickListener {
+                onClickSuggestion.onClickRemove(suggestionHistory,adapterPosition)
             }
             tvSuggestion.setOnClickListener {
                 onClickSuggestion.onClick(suggestionHistory)
@@ -42,7 +36,7 @@ class SuggestionAdapter(
         }
     }
 
-    private fun removeSuggestion(position: Int){
+    fun removeSuggestion(position: Int){
         suggestions.removeAt(position)
         notifyItemRemoved(position)
     }
@@ -50,7 +44,7 @@ class SuggestionAdapter(
     interface OnClickSuggestion{
         fun onClick(suggestion: SuggestionHistory)
 
-        fun onLongClick(suggestionHistory: SuggestionHistory,position: Int)
+        fun onClickRemove(suggestionHistory: SuggestionHistory, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
@@ -64,5 +58,13 @@ class SuggestionAdapter(
 
     override fun getItemCount(): Int {
         return suggestions.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }

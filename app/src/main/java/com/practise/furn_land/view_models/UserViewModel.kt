@@ -146,6 +146,12 @@ class UserViewModel @Inject constructor(
         }
     }
 
+    fun removeSuggestion(suggestionHistory: SuggestionHistory){
+        viewModelScope.launch{
+            userRepository.removeSuggestionHistory(suggestionHistory)
+        }
+    }
+
     private fun getQueryAsList(query: String): List<String>{
         val list = query.split(" ",",",", "," ,")
         val searchQuery = ArrayList<String>()
@@ -153,5 +159,18 @@ class UserViewModel @Inject constructor(
             searchQuery.add("%$it%")
         } }
         return searchQuery
+    }
+
+    fun insertSuggestion(query: String) {
+        viewModelScope.launch {
+            if(isUserLoggedIn() && !userRepository.isSuggestionPresent(query)) {
+                userRepository.insertSuggestion(
+                    SuggestionHistory(
+                        userId = _loggedInUser.toInt(),
+                        suggestion = query
+                    )
+                )
+            }
+        }
     }
 }
