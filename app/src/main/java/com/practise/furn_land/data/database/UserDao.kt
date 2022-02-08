@@ -55,7 +55,7 @@ interface UserDao {
     @Insert
     suspend fun addOrderList(orderList: OrderList)
 
-    @Query("SELECT * FROM `Order` WHERE userId = :userId")
+    @Query("SELECT * FROM `Order` WHERE userId = :userId ORDER BY id DESC")
     suspend fun getOrders(userId: Int): List<Order>
 
     @Query("SELECT * FROM OrderList WHERE orderId = :orderId")
