@@ -6,6 +6,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.practise.furn_land.R
 import com.practise.furn_land.data.models.Address
 import com.practise.furn_land.databinding.FragmentNewAddressBinding
@@ -52,7 +53,9 @@ class NewAddressFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        (requireActivity() as HomeActivity).setBackButtonAs(R.drawable.ic_baseline_close_24)
+        val activity = requireActivity() as HomeActivity
+        activity.setBackButtonAs(R.drawable.ic_baseline_close_24)
+        activity.setActionBarTitle(navArgs<NewAddressFragmentArgs>().value.title)
     }
 
     private fun checkInput(): Boolean = fieldsNotEmpty() && pincodeCheck()
