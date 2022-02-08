@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
         android:background="@drawable/address_background"
-        android:padding="@dimen/padding_small"
+        android:padding="@dimen/padding_large"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/btnChangeAddress"
