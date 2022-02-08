@@ -1,13 +1,17 @@
 package com.practise.furn_land.data.database
 
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.practise.furn_land.data.entities.*
 import com.practise.furn_land.data.entities.relations.CartWithProductAndImages
 import com.practise.furn_land.data.entities.relations.OrderListWithProductAndImages
+import com.practise.furn_land.data.entities.relations.ProductWithImages
 import com.practise.furn_land.data.models.Address
 
 @Dao
 interface UserDao {
+
+    //Registration/LogIn
     @Insert
     suspend fun createUser(user: User): Long
 
@@ -70,6 +74,8 @@ interface UserDao {
     @Query("UPDATE Product SET stockCount = (SELECT stockCount FROM Product WHERE id = :productId)- :quantity WHERE id = :productId")
     suspend fun updateStock(productId: Int, quantity: Int)
 
+
+    //Profile
     @Query("SELECT name FROM User WHERE id = :userId")
     suspend fun getUserName(userId: Long): String
 
@@ -87,4 +93,11 @@ interface UserDao {
 
     @Query("SELECT addressLine1,addressLine2,pincode FROM User WHERE id = :userId")
     suspend fun getUserAddress(userId: Long): Address
+
+    //Suggestions and history
+    @Query("SELECT * FROM SuggestionHistory WHERE userId = 0 OR userId = :userId")
+    suspend fun getSuggestions(userId: Int): List<SuggestionHistory>
+
+    @RawQuery
+    suspend fun getSuggestions(suggestionQuery: SupportSQLiteQuery): List<ProductWithImages>
 }
