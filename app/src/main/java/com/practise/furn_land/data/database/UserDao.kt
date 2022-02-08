@@ -99,5 +99,8 @@ interface UserDao {
     suspend fun getSuggestions(userId: Int): List<SuggestionHistory>
 
     @RawQuery
-    suspend fun getSuggestions(suggestionQuery: SupportSQLiteQuery): List<ProductWithImages>
+    suspend fun getSuggestions(suggestionQuery: SupportSQLiteQuery): List<SuggestionHistory>
+
+    @Insert
+    suspend fun insertSuggestion(suggestion: SuggestionHistory)
 }

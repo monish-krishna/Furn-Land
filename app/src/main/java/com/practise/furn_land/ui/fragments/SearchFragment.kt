@@ -21,11 +21,13 @@ import com.practise.furn_land.view_models.ProductListViewModel
 import com.practise.furn_land.view_models.ProductListViewModel.Companion.SEARCH_COMPLETED
 import com.practise.furn_land.view_models.ProductListViewModel.Companion.SEARCH_INITIATED
 import com.practise.furn_land.view_models.ProductListViewModel.Companion.SEARCH_NOT_INITIATED
+import com.practise.furn_land.view_models.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
-    private lateinit var productListViewModel: ProductListViewModel
+    private val productListViewModel: ProductListViewModel by lazy { ViewModelProvider(requireActivity())[ProductListViewModel::class.java] }
+    private val userViewModel: UserViewModel by lazy { ViewModelProvider(requireActivity())[UserViewModel::class.java] }
     private lateinit var ivSearchIllus: ImageView
     private lateinit var tvSearchInfo: TextView
     private lateinit var searchView: SearchView
@@ -35,7 +37,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        productListViewModel = ViewModelProvider(requireActivity())[ProductListViewModel::class.java]
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false)
@@ -88,6 +89,14 @@ class SearchFragment : Fragment() {
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
+            newText?.let {
+                userViewModel.updateSuggestions(newText)
+            }
+            userViewModel.getSuggestions().observe(viewLifecycleOwner){ suggestions ->
+                Log.i("SEARCH_SUGGESTION",suggestions.toString())
+                if(suggestions.isEmpty()) return@observe
+                Log.i("SEARCH_SUGGESTION",suggestions.toString())
+            }
             return true
         }
     }

@@ -1,8 +1,10 @@
 package com.practise.furn_land.data.database
 
+import android.util.Log
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.RawQuery
+import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.practise.furn_land.data.entities.Category
 import com.practise.furn_land.data.entities.Product
@@ -10,6 +12,8 @@ import com.practise.furn_land.data.entities.ProductDetail
 import com.practise.furn_land.data.entities.ProductImage
 import com.practise.furn_land.data.entities.relations.CategoryWithProducts
 import com.practise.furn_land.data.entities.relations.ProductWithImages
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Dao
 interface FurnitureDao {

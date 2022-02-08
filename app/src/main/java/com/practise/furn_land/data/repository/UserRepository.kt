@@ -1,9 +1,12 @@
 package com.practise.furn_land.data.repository
 
+import androidx.sqlite.db.SimpleSQLiteQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.practise.furn_land.data.database.UserDao
 import com.practise.furn_land.data.entities.*
 import com.practise.furn_land.data.entities.relations.CartWithProductAndImages
 import com.practise.furn_land.data.entities.relations.OrderListWithProductAndImages
+import com.practise.furn_land.data.entities.relations.ProductWithImages
 import com.practise.furn_land.data.models.Address
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -128,4 +131,27 @@ class UserRepository(
         dao.getUserAddress(userId)
     }
 
+    //Suggestions
+    suspend fun insertSuggestion(suggestionHistory: SuggestionHistory) = withContext(Dispatchers.IO){
+        dao.insertSuggestion(suggestionHistory)
+    }
+
+    suspend fun getSuggestions(userId: Int): List<SuggestionHistory> = withContext(Dispatchers.IO){
+        dao.getSuggestions(userId)
+    }
+
+    suspend fun getSuggestions(searchQuery: List<String>, userId: Int): List<SuggestionHistory> = withContext(Dispatchers.IO){
+        dao.getSuggestions(generateSuggestionQuery(searchQuery, userId))
+    }
+
+    private fun generateSuggestionQuery(query: List<String>, userId: Int): SupportSQLiteQuery {
+        var queryText = "SELECT * FROM SuggestionHistory WHERE (suggestion LIKE \'${query[0]}\'"
+        val args = arrayListOf<String>()
+        query.drop(1).forEach { searchStringPart ->
+            args.add(searchStringPart)
+            queryText += " OR suggestion LIKE ?"
+        }
+        queryText += ") AND (userId = 0 OR userId = $userId)"
+        return SimpleSQLiteQuery(queryText, args.toArray())
+    }
 }

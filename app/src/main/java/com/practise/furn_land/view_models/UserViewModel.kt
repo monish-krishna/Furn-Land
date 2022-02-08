@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.practise.furn_land.data.entities.SuggestionHistory
 import com.practise.furn_land.data.entities.User
 import com.practise.furn_land.data.models.Address
 import com.practise.furn_land.data.repository.UserRepository
@@ -25,6 +26,7 @@ class UserViewModel @Inject constructor(
     private var userHasAddress: Boolean = false
     private val isUserAddressUpdated = MutableLiveData<Boolean>()
     private var userAddress = MutableLiveData<Address>()
+    private val _suggestions = MutableLiveData<List<SuggestionHistory>>()
 
     fun getFieldInfo(): LiveData<Field> = _fieldInfo
 
@@ -130,4 +132,26 @@ class UserViewModel @Inject constructor(
 
     fun getAddress(): LiveData<Address> = userAddress
 
+    fun getSuggestions(): LiveData<List<SuggestionHistory>> = _suggestions
+
+    fun initSuggestions(){
+        viewModelScope.launch {
+            _suggestions.postValue(userRepository.getSuggestions(_loggedInUser.toInt()))
+        }
+    }
+
+    fun updateSuggestions(searchString: String){
+        viewModelScope.launch {
+            _suggestions.postValue(userRepository.getSuggestions(getQueryAsList(searchString),_loggedInUser.toInt()))
+        }
+    }
+
+    private fun getQueryAsList(query: String): List<String>{
+        val list = query.split(" ",",",", "," ,")
+        val searchQuery = ArrayList<String>()
+        list.forEach { it.apply {
+            searchQuery.add("%$it%")
+        } }
+        return searchQuery
+    }
 }
