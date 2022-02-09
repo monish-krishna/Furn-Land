@@ -58,6 +58,7 @@ class LogInFragment : Fragment() {
             Navigation.findNavController(view).navigate(LogInFragmentDirections.actionLogInFragmentToSignUpFragment())
         }
         binding.btnLogIn.setOnClickListener {
+            clearFormFocuses()
             val email = binding.tiEtEmail.text.toString()
             val password = binding.tiEtPassword.text.toString()
             if(inputCheck(email,password)){
@@ -85,6 +86,11 @@ class LogInFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    private fun clearFormFocuses() {
+        binding.tiEtEmail.clearFocus()
+        binding.tiEtPassword.clearFocus()
     }
 
     private fun inputCheck(email: String, password: String): Boolean
