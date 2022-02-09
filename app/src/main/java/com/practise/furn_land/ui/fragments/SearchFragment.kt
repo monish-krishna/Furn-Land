@@ -102,7 +102,6 @@ class SearchFragment : Fragment() {
                 .create()
                 .show()
         }
-
     }
 
     private fun getSearchQueryListener(view: View) = object : SearchView.OnQueryTextListener{
