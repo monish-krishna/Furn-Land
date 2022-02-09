@@ -8,15 +8,12 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkRequest
 import android.util.Log
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.io.IOException
 import java.net.InetSocketAddress
 import javax.net.SocketFactory
 
-class ConnectionLiveData(context: Context): LiveData<Boolean>(true) {
+class ConnectionLiveData(context: Context): LiveData<Boolean>() {
 
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
     private val cm = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -29,6 +26,10 @@ class ConnectionLiveData(context: Context): LiveData<Boolean>(true) {
             .addCapability(NET_CAPABILITY_INTERNET)
             .build()
         cm.registerNetworkCallback(networkRequest,networkCallback)
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(1000)
+            checkValidNetworks()
+        }
     }
 
     override fun onInactive() {
@@ -45,7 +46,6 @@ class ConnectionLiveData(context: Context): LiveData<Boolean>(true) {
             val hasInternetCapability = networkCapabilities?.hasCapability(NET_CAPABILITY_INTERNET)
 
             if (hasInternetCapability == true){
-
                 CoroutineScope(Dispatchers.IO).launch {
                     val hasInternet = doesNetworkActuallyHasInternet(network.socketFactory)
                     if(hasInternet){
