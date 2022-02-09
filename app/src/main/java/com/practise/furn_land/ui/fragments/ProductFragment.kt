@@ -83,7 +83,6 @@ class ProductFragment : Fragment() {
         cartViewModel.isProductInUserCart().observe(viewLifecycleOwner){
             it?.let { setUpAddToCartButton(it) }
         }
-        setUpFavoriteCheckedListener()
         setUpAddToCartListener()
         Log.i(TAG,"onViewCreated called()")
     }
@@ -129,7 +128,9 @@ class ProductFragment : Fragment() {
     private fun checkIsUserFavorite(productId: Int) {
         lifecycleScope.launch {
             val isUserFavorite = favoriteViewModel.isUserFavorite(productId,userViewModel.getLoggedInUser().toInt())
-            productViewModel.setIsFavorite(isUserFavorite)
+            productViewModel.setIsFavorite(isUserFavorite).also {
+                setUpFavoriteCheckedListener()
+            }
         }
     }
 
