@@ -1,5 +1,6 @@
 package com.practise.furn_land.ui.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.practise.furn_land.R
+import com.practise.furn_land.data.entities.relations.ProductWithImages
 import com.practise.furn_land.databinding.FragmentFavoriteBinding
 import com.practise.furn_land.databinding.LayoutLogInPromptBinding
 import com.practise.furn_land.ui.activity.HomeActivity
@@ -55,10 +57,30 @@ class FavoriteFragment : Fragment() {
         rvFavorites.layoutManager = LinearLayoutManager(requireContext())
         favoriteViewModel.getUserFavorites().observe(viewLifecycleOwner){ productList ->
             bindingFavorite.isListEmpty = productList.isEmpty()
-            rvFavorites.adapter = ProductListAdapter(productList){
-                findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToProductFragment(it.id))
-            }
+            val mutableProductList = ArrayList<ProductWithImages>(productList)
+            rvFavorites.adapter = getProductListAdapter(mutableProductList)
         }
+    }
+
+    private fun getProductListAdapter(mutableProductList: ArrayList<ProductWithImages>): ProductListAdapter {
+        val adapter = ProductListAdapter(mutableProductList.toMutableList()){
+            findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToProductFragment(it.id))
+        }
+        adapter.setOnLongClickListener(getFavoriteLongClickListener())
+        return adapter
+    }
+
+    private fun getFavoriteLongClickListener() = ProductListAdapter.OnLongClickProduct { productId,adapter, position ->
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.remove_from_favorite)
+            .setPositiveButton(R.string.remove){_,_ ->
+                favoriteViewModel.removeFavorite(userViewModel.getLoggedInUser().toInt(),productId)
+                adapter.removeItem(position)
+                if(adapter.itemCount == 0) bindingFavorite.isListEmpty = true
+            }
+            .setNegativeButton(R.string.cancel){_,_ ->}
+            .create()
+            .show()
     }
 
     private fun setUpLogInPrompt() {
