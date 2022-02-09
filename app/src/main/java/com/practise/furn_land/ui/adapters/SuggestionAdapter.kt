@@ -26,6 +26,9 @@ class SuggestionAdapter(
             if (suggestionHistory.userId>0) {
                 ivSearch.setImageDrawable(ResourcesCompat.getDrawable(itemView.resources,R.drawable.ic_history,null))
                 ibRemove.visibility = View.VISIBLE
+            }else{
+                ivSearch.setImageDrawable(ResourcesCompat.getDrawable(itemView.resources,R.drawable.ic_search,null))
+                ibRemove.visibility = View.GONE
             }
             ibRemove.setOnClickListener {
                 onClickSuggestion.onClickRemove(suggestionHistory,adapterPosition)
