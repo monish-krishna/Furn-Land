@@ -84,7 +84,7 @@
     <string name="change_address">Change Address</string>
     <string name="no_address_added">No Address added</string>
     <string name="add_address">Add Address</string>
-    <string name="remove_from_history">Remove from search hisory?</string>
+    <string name="remove_from_history">Remove from search history?</string>
     <string name="remove">Remove</string>
     <string name="cancel">Cancel</string>
     <string name="remove_suggestion">Remove Suggestion</string>
