@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practise.furn_land.R
+import com.practise.furn_land.data.entities.relations.ProductWithImages
 import com.practise.furn_land.ui.activity.HomeActivity
 import com.practise.furn_land.ui.adapters.ProductListAdapter
 import com.practise.furn_land.view_models.ProductListViewModel
@@ -56,7 +57,8 @@ class ProductListFragment : Fragment() {
         productListViewModel.getProductWithImagesList().observe(viewLifecycleOwner){ productWithImagesList ->
             val resultText = productWithImagesList.size.toString() + " results"
             tvResultCount.text = resultText
-            rvProducts.adapter = ProductListAdapter(productWithImagesList){ product ->
+            val mutableProductWithImagesList = ArrayList<ProductWithImages>(productWithImagesList)
+            rvProducts.adapter = ProductListAdapter(mutableProductWithImagesList.toMutableList()){ product ->
                 Navigation.findNavController(view).navigate(ProductListFragmentDirections.actionProductListFragmentToProductFragment(product.id))
             }
         }
