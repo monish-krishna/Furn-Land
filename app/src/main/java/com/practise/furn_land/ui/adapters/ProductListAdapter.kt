@@ -15,9 +15,12 @@ import com.practise.furn_land.utils.isStrikeThrough
 import kotlin.math.roundToInt
 
 class ProductListAdapter(
-    private val productWithImages: List<ProductWithImages>,
+    private val productWithImages: MutableList<ProductWithImages>,
     private val onClickListener: OnClickProduct
 ): RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
+
+    private var isLongClickListenerSet = false
+    private lateinit var itemLongClickListener : OnLongClickProduct
 
     inner class ProductViewHolder(val view: View): RecyclerView.ViewHolder(view){
         private val tvProductName = view.findViewById<TextView>(R.id.tvItemProductName)
@@ -49,6 +52,12 @@ class ProductListAdapter(
             }
             setUpRatingIcon()
             setUpPrices(product)
+            if (isLongClickListenerSet){
+                view.setOnLongClickListener {
+                    itemLongClickListener.onLongClick(product.id,this@ProductListAdapter,adapterPosition)
+                    true
+                }
+            }
         }
 
         private fun setUpPrices(product: Product) {
@@ -106,7 +115,21 @@ class ProductListAdapter(
         return productWithImages.size
     }
 
+    fun setOnLongClickListener(onLongClickProduct: OnLongClickProduct){
+        itemLongClickListener = onLongClickProduct
+        isLongClickListenerSet = true
+    }
+
+    fun removeItem(position: Int){
+        productWithImages.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     fun interface OnClickProduct{
         fun onClick(product: Product)
+    }
+
+    fun interface OnLongClickProduct{
+        fun onLongClick(productId: Int, adapter: ProductListAdapter, position: Int)
     }
 }
