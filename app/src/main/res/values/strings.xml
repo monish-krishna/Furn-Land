@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Furn-Land</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Blank for now</string>
     <string name="more">more</string>
     <string name="less">less</string>
@@ -88,6 +87,6 @@
     <string name="remove">Remove</string>
     <string name="cancel">Cancel</string>
     <string name="remove_suggestion">Remove Suggestion</string>
-    <string name="no_internet">No Internet connnection. Images may not me loaded properly.</string>
+    <string name="no_internet">No Internet connection. Images may not be loaded properly.</string>
     <string name="remove_from_favorite">Remove from Favorites?</string>
 </resources>
