@@ -47,6 +47,7 @@ class SignUpFragment : Fragment() {
         setUpFocusChangeListeners()
         binding.btnSignUp.setOnClickListener {
             initiateSignUp()
+            clearFormFocuses()
         }
         binding.tiEtConfirmPassword.setOnEditorActionListener { v, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
@@ -58,6 +59,14 @@ class SignUpFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    private fun clearFormFocuses() {
+        binding.tiEtEmail.clearFocus()
+        binding.tiEtMobile.clearFocus()
+        binding.tiEtName.clearFocus()
+        binding.tiEtPassword.clearFocus()
+        binding.tiEtConfirmPassword.clearFocus()
     }
 
     private fun initiateSignUp() {
