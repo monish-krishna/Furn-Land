@@ -9,6 +9,7 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -16,8 +17,10 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.practise.furn_land.R
 import com.practise.furn_land.ui.fragments.CartFragmentDirections
+import com.practise.furn_land.utils.ConnectionLiveData
 import com.practise.furn_land.utils.safeNavigate
 import com.practise.furn_land.view_models.OrderViewModel
 import com.practise.furn_land.view_models.ProductListViewModel
@@ -31,6 +34,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var productListViewModel: ProductListViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var navController: NavController
+    private lateinit var snackBarLayout: CoordinatorLayout
+    private lateinit var snackBar: Snackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +44,9 @@ class HomeActivity : AppCompatActivity() {
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         setUpUser()
-
+        snackBarLayout = findViewById(R.id.snackBarLayout)
+        setUpSnackBar()
+        setUpConnectionMonitor()
         //Bottom Navigation View
         bottomNavBar = findViewById(R.id.bottomNav)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerHome) as NavHostFragment
@@ -84,6 +91,21 @@ class HomeActivity : AppCompatActivity() {
 
     fun setActionBarTitle(title: String){
         supportActionBar?.title = title
+    }
+
+    private fun setUpSnackBar() {
+        snackBar = Snackbar.make(snackBarLayout,R.string.no_internet,Snackbar.LENGTH_INDEFINITE)
+        snackBar.setAction(R.string.okay){}
+    }
+
+    private fun setUpConnectionMonitor(){
+        val connectionLiveData = ConnectionLiveData(this)
+        connectionLiveData.observe(this){ isAvailable ->
+            if(isAvailable)
+                snackBar.dismiss()
+            else
+                snackBar.show()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
