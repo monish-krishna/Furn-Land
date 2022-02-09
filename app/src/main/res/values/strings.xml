@@ -89,4 +89,5 @@
     <string name="cancel">Cancel</string>
     <string name="remove_suggestion">Remove Suggestion</string>
     <string name="no_internet">No Internet connnection. Images may not me loaded properly.</string>
+    <string name="remove_from_favorite">Remove from Favorites?</string>
 </resources>
