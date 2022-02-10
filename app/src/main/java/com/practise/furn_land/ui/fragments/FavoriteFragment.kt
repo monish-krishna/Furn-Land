@@ -1,6 +1,5 @@
 package com.practise.furn_land.ui.fragments
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -66,21 +65,7 @@ class FavoriteFragment : Fragment() {
         val adapter = ProductListAdapter(mutableProductList.toMutableList()){
             findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToProductFragment(it.id))
         }
-        adapter.setOnLongClickListener(getFavoriteLongClickListener())
         return adapter
-    }
-
-    private fun getFavoriteLongClickListener() = ProductListAdapter.OnLongClickProduct { productId,adapter, position ->
-        AlertDialog.Builder(requireContext())
-            .setTitle(R.string.remove_from_favorite)
-            .setPositiveButton(R.string.remove){_,_ ->
-                favoriteViewModel.removeFavorite(userViewModel.getLoggedInUser().toInt(),productId)
-                adapter.removeItem(position)
-                if(adapter.itemCount == 0) bindingFavorite.isListEmpty = true
-            }
-            .setNegativeButton(R.string.cancel){_,_ ->}
-            .create()
-            .show()
     }
 
     private fun setUpLogInPrompt() {
