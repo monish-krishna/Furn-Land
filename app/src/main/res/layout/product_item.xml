@@ -12,6 +12,6 @@
     android:padding="@dimen/padding_small">
 
     <include
-        layout="@layout/layout_product_item_main"/>
+        layout="@layout/layout_product_item_main" />
 
 </androidx.cardview.widget.CardView>

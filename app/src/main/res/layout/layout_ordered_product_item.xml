@@ -3,16 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <include
         android:id="@+id/include2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/layout_product_item_main"
-        android:layout_marginStart="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,28 +24,28 @@
         android:text="@string/quantity"
         android:textColor="@color/customColorFontPrimary"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tvProductQuantity"
         app:layout_constraintEnd_toStartOf="@+id/tvProductQuantity"
-        app:layout_constraintTop_toTopOf="@+id/tvProductQuantity" />
+        app:layout_constraintTop_toBottomOf="@id/include2" />
 
     <TextView
         android:id="@+id/tvProductQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_small"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvQuantityTitle"
         app:layout_constraintEnd_toEndOf="@id/include2"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
         tools:text="3" />
 
     <View
         android:id="@+id/divider7"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_small"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductQuantity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,10 +51,10 @@
                     android:id="@+id/imageSlider"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
+                    android:background="@color/white"
                     android:backgroundTint="@color/white"
                     android:paddingTop="@dimen/padding_small"
                     android:paddingBottom="@dimen/padding_small"
-                    android:background="@color/white"
                     app:iss_auto_cycle="true"
                     app:iss_delay="3000"
                     app:iss_error_image="@drawable/image_not_available"
@@ -105,9 +105,9 @@
                     android:text="@{`Brand: `+viewModel.product.brandName}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:textStyle="bold|italic"
-                    app:layout_constraintTop_toBottomOf="@id/more"
                     app:layout_constraintStart_toStartOf="@id/tvProductName"
-                    tools:text="Krishna Wood Factory"/>
+                    app:layout_constraintTop_toBottomOf="@id/more"
+                    tools:text="Krishna Wood Factory" />
 
                 <TextView
                     android:id="@+id/more"
@@ -193,103 +193,104 @@
                     app:layout_constraintTop_toBottomOf="@id/tvCurrentPrice"
                     tools:text="50% Off" />
 
-                    <TextView
-                        android:id="@+id/availabilityAlert"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_small"
-                        android:text="@{viewModel.product.stockCount == 0 ? `Product currently not in stock` : `Hurry, only `+ viewModel.product.stockCount +` left!`}"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textColor="@color/orangeRed"
-                        android:textStyle="italic"
-                        android:visibility="@{(viewModel.product.stockCount &lt; 10) &amp;&amp; (viewModel.product.stockCount >= 0) ? View.VISIBLE : View.GONE}"
-                        app:layout_constraintStart_toStartOf="@id/tvCurrentPrice"
-                        app:layout_constraintTop_toBottomOf="@id/tvOffer"
-                        tools:ignore="TextContrastCheck"
-                        tools:text="Hurry, only 1 left!" />
+                <TextView
+                    android:id="@+id/availabilityAlert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:text="@{viewModel.product.stockCount == 0 ? `Product currently not in stock` : `Hurry, only `+ viewModel.product.stockCount +` left!`}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="@color/orangeRed"
+                    android:textStyle="italic"
+                    android:visibility="@{(viewModel.product.stockCount &lt; 10) &amp;&amp; (viewModel.product.stockCount >= 0) ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toStartOf="@id/tvCurrentPrice"
+                    app:layout_constraintTop_toBottomOf="@id/tvOffer"
+                    tools:ignore="TextContrastCheck"
+                    tools:text="Hurry, only 1 left!" />
 
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cardInnerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/availabilityAlert">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cardInnerLayout"
+                        android:id="@+id/detailsView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_height="wrap_content"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="@dimen/padding_small"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/availabilityAlert">
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/detailsView"
+                        <TextView
+                            android:id="@+id/allDetails"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/padding_small"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            android:text="@string/all_details"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                            android:textColor="@color/customColorFontPrimary"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                            <TextView
-                                android:id="@+id/allDetails"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="@dimen/padding_small"
-                                android:text="@string/all_details"
-                                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                                android:textColor="@color/customColorFontPrimary"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <ImageView
-                                android:id="@+id/moreArrow"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/margin_small"
-                                android:src="@drawable/ic_expand_more"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:contentDescription="@string/show_more_less_icon_for_details" />
+                        <ImageView
+                            android:id="@+id/moreArrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_small"
+                            android:contentDescription="@string/show_more_less_icon_for_details"
+                            android:src="@drawable/ic_expand_more"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/detailsListView"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/detailsListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/detailsView">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvDetailsList"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/detailsView">
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rvDetailsList"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:nestedScrollingEnabled="false"
-                                android:visibility="gone"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <View
-                            android:id="@+id/dividerTopDetails"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="?android:attr/listDivider"
+                            android:nestedScrollingEnabled="false"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <View
-                            android:id="@+id/dividerBottomDetails"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="?android:attr/listDivider"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/dividerTopDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/dividerBottomDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="32dp"
@@ -311,13 +312,13 @@
                             android:layout_height="24dp"
                             android:layout_marginTop="2dp"
                             android:background="@drawable/favorite_button_bg"
+                            android:checked="@{viewModel.isUserFavorite}"
                             android:elevation="2dp"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:gravity="center"
                             android:textOff=""
                             android:textOn=""
-                            android:checked="@{viewModel.isUserFavorite}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -330,42 +331,43 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/buttonCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="0dp"
-            android:elevation="0dp"
-            app:cardBackgroundColor="@color/customColorFontPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddToCart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAddToCart"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="0dp"
-                    android:minHeight="62dp"
-                    android:text="@string/add_to_cart"
-                    app:backgroundTint="@color/customColorFontPrimary"
-                    app:cornerRadius="0dp"
-                    app:icon="@drawable/ic_add_to_cart"
-                    app:iconGravity="textStart"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:minHeight="62dp"
+                android:text="@string/add_to_cart"
+                app:backgroundTint="@color/customColorFontPrimary"
+                app:cornerRadius="50dp"
+                app:icon="@drawable/ic_add_to_cart"
+                app:iconGravity="textStart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,5 +1,6 @@
 package com.practise.furn_land.ui.adapters
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,9 @@ class OrderedProductsAdapter(
             val productImages = productWithImages.productImages
             var imageUrl = productImages[0].productImageUrl
             view.setOnClickListener { onClickOrderedProduct.onClick(product) }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                view.foreground = ResourcesCompat.getDrawable(view.resources,R.drawable.ripple_bg,null)
+            }
             productImages.forEach { productImage ->
                 if (productImage.productImageIndex == 1) imageUrl = productImage.productImageUrl
                 else return@forEach

@@ -1,11 +1,13 @@
 package com.practise.furn_land.ui.adapters
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +44,9 @@ class CartItemAdapter(
             val productImages = productWithImages.productImages
             var imageUrl = productImages[0].productImageUrl
             productClickView.setOnClickListener { onClickProduct.onClick(product) }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                productClickView.foreground = ResourcesCompat.getDrawable(view.resources,R.drawable.ripple_bg,null)
+            }
             productImages.forEach { productImage ->
                 if (productImage.productImageIndex == 1) imageUrl = productImage.productImageUrl
                 else return@forEach
