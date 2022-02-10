@@ -67,7 +67,7 @@ class NewAddressFragment : Fragment() {
             binding.tiLtPincode.error = getString(R.string.not_a_valid_pincode)
         }
         if(isValidPincode){
-            val isValidForTN = pincode.toInt() > 599_999
+            val isValidForTN = pincode.toInt() > 100_000 //starting pincode range for India (mild check)
             if(!isValidForTN) binding.tiLtPincode.error = getString(R.string.not_a_valid_pincode)
             isValidPincode = isValidPincode && isValidForTN
         }
