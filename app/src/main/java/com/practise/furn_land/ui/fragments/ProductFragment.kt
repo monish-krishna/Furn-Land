@@ -1,5 +1,6 @@
 package com.practise.furn_land.ui.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.transition.AutoTransition
@@ -66,7 +67,6 @@ class ProductFragment : Fragment() {
         productViewModel.getProductRatingBackground().observe(viewLifecycleOwner){
             setRatingDrawable()
         }
-        binding.productNameClickListener = getProductNameOnClickListener()
         binding.more.visibility = View.GONE
         binding.roundToInt = {input ->  input.roundToInt() }
         binding.detailsView.setOnClickListener(getDetailsClickListener())
@@ -204,25 +204,28 @@ class ProductFragment : Fragment() {
                 Log.i(TAG,"onGlobal Layout")
                 val tvLayout = productTv.layout
                 if(tvLayout != null){
+                    productListenerSetTimes+=1
                     val lines = tvLayout.lineCount
                     val ellipsisCount = tvLayout.getEllipsisCount(lines-1)
                     Log.i(TAG,ellipsisCount.toString())
                     var conditionPass = false
                     if (lines > 0 && (tvLayout.getEllipsisCount(lines-1) > 0) && productListenerSetTimes < 10) {
                         binding.more.visibility = View.VISIBLE
-                        binding.tvProductName.setOnClickListener(getProductNameOnClickListener())
+                        binding.productNameLayout.setOnClickListener(getProductNameOnClickListener())
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            binding.productNameLayout.foreground = ResourcesCompat.getDrawable(productTv.resources,R.drawable.ripple_bg,null)
+                        }
                         conditionPass = true
                         Log.i(TAG,"in if block- productListenerTimes = $productListenerSetTimes")
-                    }else if(!conditionPass && lines > 0 && (tvLayout.getEllipsisCount(lines-1) < 1) && productListenerSetTimes > 10){
+                    }else if(lines > 0 && (tvLayout.getEllipsisCount(lines-1) < 1) && productListenerSetTimes > 10){
                         conditionPass = true
                         Log.i(TAG,"in else if block - productListenerTimes = $productListenerSetTimes")
                     }
                     Log.i(TAG,"conditionPass $conditionPass")
                     if (conditionPass || productListenerSetTimes > 20) {
-                        binding.tvProductName.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        textViewTreeObserver.removeOnGlobalLayoutListener(this)
                         Log.i(TAG,"conditionPass - remover of listener")
                     }
-                    productListenerSetTimes+=1
                 }
             }
         })
