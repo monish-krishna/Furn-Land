@@ -223,6 +223,7 @@ class ProductFragment : Fragment() {
                     }
                     Log.i(TAG,"conditionPass $conditionPass")
                     if (conditionPass || productListenerSetTimes > 20) {
+                        productListenerSetTimes=0
                         textViewTreeObserver.removeOnGlobalLayoutListener(this)
                         Log.i(TAG,"conditionPass - remover of listener")
                     }
