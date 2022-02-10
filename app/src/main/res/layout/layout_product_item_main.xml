@@ -72,13 +72,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            app:layout_goneMarginTop="@dimen/margin_large"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_small"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:textStyle="bold|italic"
+            app:layout_constraintBottom_toTopOf="@+id/tvItemCurrentPrice"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/tvItemRatingIcon"
+            app:layout_goneMarginTop="@dimen/margin_large"
             tools:text="Brand Name" />
 
         <TextView
