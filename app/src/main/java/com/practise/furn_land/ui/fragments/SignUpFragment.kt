@@ -46,8 +46,9 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpFocusChangeListeners()
         binding.btnSignUp.setOnClickListener {
-            initiateSignUp()
+            userViewModel.clearFieldInfo()
             clearFormFocuses()
+            initiateSignUp()
         }
         binding.tiEtConfirmPassword.setOnEditorActionListener { v, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
@@ -74,8 +75,14 @@ class SignUpFragment : Fragment() {
             field?.let {
                 deliverFieldMessage(it)
                 if (field.response == Response.Success){
+                    val sharedPref = activity?.getSharedPreferences(getString(R.string.user_details), Context.MODE_PRIVATE)
+                    val editor = sharedPref?.edit()
+                    editor?.let { editor ->
+                        editor.putLong(getString(R.string.user_details),userViewModel.getLoggedInUser() )
+                        editor.apply()
+                    }
                     userViewModel.clearFieldInfo()
-                    Navigation.findNavController(requireView()).popBackStack(R.id.logInFragment,false)
+                    Navigation.findNavController(requireView()).popBackStack(R.id.logInFragment,true)
                 }
             }
         }

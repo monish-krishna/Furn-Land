@@ -100,11 +100,13 @@ class UserViewModel @Inject constructor(
             return@launch
         }
         createUser(user)
-        _fieldInfo.value = Field.ALL.also { it.response.message = "Sign up successful" }
     }
 
     private fun createUser(user: User){
-        viewModelScope.launch { userRepository.createUser(user) }
+        viewModelScope.launch {
+            setLoggedInUser(userRepository.createUser(user))
+            _fieldInfo.value = Field.ALL.also { it.response.message = "Sign up successful" }
+        }
     }
 
     fun getUserProfileState(): LiveData<UserProfileState> = userProfileState
