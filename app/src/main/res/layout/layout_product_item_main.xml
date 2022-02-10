@@ -11,6 +11,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/white"
+            android:backgroundTint="@color/white"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_image_load"
             app:layout_constraintBottom_toBottomOf="parent"
