@@ -128,12 +128,13 @@ class CartFragment : Fragment() {
             cartItems.add(it.cart)
         }
         Log.i("CartFragment", "cartItems - $cartItems")
-
-        orderViewModel.addOrder(
-            userViewModel.getLoggedInUser().toInt(),
-            cartItems,
-            cartViewModel.getTotalPrice()
-        )
+        if(cartItems.size > 0){
+            orderViewModel.addOrder(
+                userViewModel.getLoggedInUser().toInt(),
+                cartItems,
+                cartViewModel.getTotalPrice()
+            )
+        }
     }
 
     private fun setUpRecyclerView() {
