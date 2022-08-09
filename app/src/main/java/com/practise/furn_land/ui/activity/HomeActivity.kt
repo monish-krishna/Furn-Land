@@ -71,7 +71,10 @@ class HomeActivity : AppCompatActivity() {
                 R.id.homeFragment -> showBottomNavBar()
                 R.id.searchFragment -> showBottomNavBar()
                 R.id.profileFragment -> showBottomNavBar()
-                R.id.productListFragment -> hideBottomNavBar()
+                R.id.productListFragment -> {
+                    hideBottomNavBar()
+                    invalidateOptionsMenu()
+                }
                 R.id.newAddressDialogFragment-> hideBottomNavBar()
                 else -> hideBottomNavBar()
             }

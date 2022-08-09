@@ -39,7 +39,10 @@ class ProductListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.i(TAG,"onCreateView() called")
+        productListViewModel.setCategoryId(navArgs.categoryId)
         // Inflate the layout for this fragment
+
+        (requireActivity() as HomeActivity).invalidateOptionsMenu()
         return inflater.inflate(R.layout.fragment_product_list, container, false)
     }
 
@@ -50,18 +53,21 @@ class ProductListFragment : Fragment() {
         btnSort = view.findViewById(R.id.btnSort)
         tvResultCount = view.findViewById(R.id.tvResultCount)
         rvProducts = view.findViewById(R.id.rvProductsList)
-        if (navArgs.categoryId > 0){
+
+        if (productListViewModel.getCategoryId() > 0){
             productListViewModel.setProductWithImagesList(navArgs.categoryId)
-            tvResultCount.visibility = View.GONE
+        }else if(productListViewModel.getProductWithImagesList().value.isNullOrEmpty()){
+            productListViewModel.setProductsWithImagesWithQuery(productListViewModel.getProductListTitle())
         }
         productListViewModel.getProductWithImagesList().observe(viewLifecycleOwner){ productWithImagesList ->
-            val resultText = productWithImagesList.size.toString() + " results"
+            val resultText = productWithImagesList.size.toString() + " products"
             tvResultCount.text = resultText
             val mutableProductWithImagesList = ArrayList<ProductWithImages>(productWithImagesList)
             rvProducts.adapter = ProductListAdapter(mutableProductWithImagesList.toMutableList()){ product ->
-                Navigation.findNavController(view).navigate(ProductListFragmentDirections.actionProductListFragmentToProductFragment(product.id))
+                Navigation.findNavController(requireView()).navigate(ProductListFragmentDirections.actionProductListFragmentToProductFragment(product.id))
             }
         }
+
         rvProducts.layoutManager = LinearLayoutManager(view.context)
         btnSort.setOnClickListener {
             Navigation.findNavController(view).navigate(ProductListFragmentDirections.actionProductListFragmentToSortBottomSheetFragment())

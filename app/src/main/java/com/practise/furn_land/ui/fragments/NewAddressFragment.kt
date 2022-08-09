@@ -41,6 +41,7 @@ class NewAddressFragment : Fragment() {
         return when (item.itemId) {
             R.id.mi_done -> {
                 cancelErrors()
+                clearFocuses()
                 if(checkInput()){
                     addUserAddress()
                     findNavController().navigateUp()
@@ -49,6 +50,13 @@ class NewAddressFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun clearFocuses() {
+        binding.tiEtDoorOrApartment.clearFocus()
+        binding.tiEtLandMark.clearFocus()
+        binding.tiEtCity.clearFocus()
+        binding.tiEtPincode.clearFocus()
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -62,14 +70,13 @@ class NewAddressFragment : Fragment() {
 
     private fun pincodeCheck(): Boolean{
         val pincode = binding.tiEtPincode.text.toString()
-        var isValidPincode = pincode.isDigitsOnly() || pincode.length == 6
+        var isValidPincode = pincode.isDigitsOnly() && pincode.length == 6
         if(!isValidPincode){
             binding.tiLtPincode.error = getString(R.string.not_a_valid_pincode)
         }
         if(isValidPincode){
             val isValidForTN = pincode.toInt() >= 100_000 //starting pincode range for India (mild check)
             if(!isValidForTN) binding.tiLtPincode.error = getString(R.string.not_a_valid_pincode)
-            isValidPincode = isValidPincode && isValidForTN
         }
         return isValidPincode
     }

@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.Network
+import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -76,7 +78,8 @@ class ConnectionLiveData(context: Context): LiveData<Boolean>() {
             socket.close()
             true
         }catch (e: IOException){
-            Log.e(TAG, "No internet connection. ${e}")
+            Log.e(TAG, "No internet connection. $e")
+            e.printStackTrace()
             false
         }
     }

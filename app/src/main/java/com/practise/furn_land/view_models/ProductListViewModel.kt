@@ -26,6 +26,7 @@ class ProductListViewModel @Inject constructor(
     private val _categoryList = MutableLiveData<List<Category>>()
     private val _searchStatus = MutableLiveData<Int>()
     private var _productListTitle: String? = null
+    private var categoryId: Int = 0
 
     private var _sortType : SortType? = null
 
@@ -35,6 +36,11 @@ class ProductListViewModel @Inject constructor(
     }
 
 
+    fun setCategoryId(categoryId: Int){
+        this.categoryId = categoryId
+    }
+
+    fun getCategoryId() = categoryId
 
     //Product List Access/Get Method
     fun getProductWithImagesList(): LiveData<List<ProductWithImages>> = _productWithImagesList

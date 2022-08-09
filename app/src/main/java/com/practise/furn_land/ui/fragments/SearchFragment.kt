@@ -58,13 +58,7 @@ class SearchFragment : Fragment() {
         searchView.setOnQueryTextListener(getSearchQueryListener(view))
         searchView.setOnQueryTextFocusChangeListener{ _, hasFocus ->
             if(hasFocus){
-                if (firstFocus) {
-                    userViewModel.initSuggestions()
-                    firstFocus = false
-                }
-                ivSearchIllus.visibility = View.GONE
-                tvSearchInfo.visibility = View.GONE
-                rvSuggestions.visibility = View.VISIBLE
+                initSuggestions()
                 ivSearchIllus.setImageResource(R.drawable.image_search_illustration)
                 tvSearchInfo.text = getString(R.string.start_your_furniture_hunt_here)
             }else{
@@ -83,6 +77,16 @@ class SearchFragment : Fragment() {
             rvSuggestions.adapter= SuggestionAdapter(mutableSuggestions.toMutableList(),getOnClickSuggestion())
         }
         requireActivity().invalidateOptionsMenu()
+    }
+
+    private fun initSuggestions() {
+        if (firstFocus) {
+            userViewModel.initSuggestions()
+            firstFocus = false
+        }
+        ivSearchIllus.visibility = View.GONE
+        tvSearchInfo.visibility = View.GONE
+        rvSuggestions.visibility = View.VISIBLE
     }
 
     private fun getOnClickSuggestion() = object : SuggestionAdapter.OnClickSuggestion{
@@ -176,7 +180,6 @@ class SearchFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        rvSuggestions.adapter = null
         productListViewModel.setSearchStatus(SEARCH_NOT_INITIATED)
     }
 }
